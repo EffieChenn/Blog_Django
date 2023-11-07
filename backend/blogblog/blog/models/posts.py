@@ -3,27 +3,33 @@ from datetime import datetime
 from django.template.defaultfilters import slugify
 
 
-class Categories(models.TextChoices):
-    WORLD = "world"
-    ENVIRONMENT = "environment"
-    TECHNOLOGY = "technology"
-    DESIGN = "design"
-    CULTURE = "culture"
-    BUSINESS = "business"
-    POLITICS = "politics"
-    SCIENCE = "science"
-    WEATHER = "weather"
-    HEALTH = "health"
-    STYLE = "style"
-    TRAVEL = "travel"
+# class Categories(models.TextChoices):
+#     WORLD = "world"
+#     ENVIRONMENT = "environment"
+#     TECHNOLOGY = "technology"
+#     DESIGN = "design"
+#     CULTURE = "culture"
+#     BUSINESS = "business"
+#     POLITICS = "politics"
+#     SCIENCE = "science"
+#     WEATHER = "weather"
+#     HEALTH = "health"
+#     STYLE = "style"
+#     TRAVEL = "travel"
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=50)
-    # slug is unique
     slug = models.SlugField()
-    category = models.CharField(
-        max_length=50, choices=Categories.choices, default=Categories.WORLD
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, related_name="category"
     )
     thumbnail = models.ImageField(upload_to="photos/%Y/%m/%d/")
     excerpt = models.CharField(max_length=150)

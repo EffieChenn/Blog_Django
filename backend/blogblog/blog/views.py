@@ -9,14 +9,21 @@ from rest_framework.generics import (
     ListCreateAPIView,
 )
 from rest_framework.mixins import ListModelMixin
-from .models import BlogPost, Comment, Categories
+from .models import BlogPost, Comment
 from .serializers import BlogPostSerializer, CommentSerializer
 from datetime import datetime
 
 
+# class CategoryListView(APIView):
+#     def get(self, request):
+#         queryset = Categories.objects.all()
+#         serializers = CategorySerializer(queryset, many=True)
+#         return Response(serializers.data)
+
+
 # ListAPIView內建一個get方法，只需要定義一個視圖類，而不必手動實現 GET 方法
 class BlogPostListView(ListAPIView):
-    queryset = BlogPost.objects.order_by("-date_created")
+    queryset = BlogPost.objects.all().order_by("-date_created")
     serializer_class = BlogPostSerializer
     lookup_field = "slug"
     permission_classes = (permissions.AllowAny,)

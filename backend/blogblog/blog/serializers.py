@@ -1,11 +1,19 @@
 from rest_framework import serializers
-from .models import BlogPost, Comment
+from .models import BlogPost, Comment, Category
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        exclude = ["id"]
 
 
 class BlogPostSerializer(serializers.ModelSerializer):
+    comments = serializers.StringRelatedField(many=True)
+    category = CategorySerializer(many=False)
+
     class Meta:
         model = BlogPost
-        # 取得全部欄位
         fields = "__all__"
         lookup_field = "slug"
 

@@ -1,2 +1,2 @@
-from .posts import BlogPost, Categories
+from .posts import BlogPost, Category
 from .comments import Comment
