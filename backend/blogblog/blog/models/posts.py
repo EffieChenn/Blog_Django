@@ -29,7 +29,7 @@ class BlogPost(models.Model):
     title = models.CharField(max_length=50)
     slug = models.SlugField()
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, related_name="category"
+        Category, on_delete=models.CASCADE, related_name="posts"
     )
     thumbnail = models.ImageField(upload_to="photos/%Y/%m/%d/")
     excerpt = models.CharField(max_length=150)

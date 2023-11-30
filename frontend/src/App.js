@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Blog from "./components/Blog";
 import BlogDetail from "./components/BlogDetail";
 import Category from "./components/Category";
+import AddForm from "./components/AddForm";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/blog" element={<Blog />} />
           <Route path="/category/:id" element={<Category />} />
           <Route path="/blog/:id" element={<BlogDetail />} />
+          <Route path="/blog/add" element={<AddForm />} />
         </Routes>
       </DefaultLayout>
     </BrowserRouter>

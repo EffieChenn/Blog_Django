@@ -4,12 +4,13 @@ import CommentForm from "./CommentForm";
 
 const BlogDetail = () => {
   const params = useParams();
+  const slug = params.id;
 
   const [blog, setData] = useState({});
   const [comments, setComments] = useState([]);
   useEffect(() => {
-    const slug = params.id;
-    fetch(`${process.env.REACT_APP_API_URL}/api/blog/${slug}`, {
+    // const slug = params.id;
+    fetch(`${process.env.REACT_APP_API_URL}/api/blog/${slug}/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -18,10 +19,24 @@ const BlogDetail = () => {
       .then((res) => res.json())
       .then((data) => {
         setData(data);
-        setComments(data.comments);
+        // setComments(data.comments);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
+      });
+
+    fetch(`${process.env.REACT_APP_API_URL}/api/blog/${slug}/comments/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setComments(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching comments:", error);
       });
   }, [params.id]);
 
@@ -33,8 +48,6 @@ const BlogDetail = () => {
     if (word) return word.charAt(0).toUpperCase() + word.slice(1);
     return "";
   };
-
-  const slug = params.id;
 
   return (
     <div className="container mt-3">

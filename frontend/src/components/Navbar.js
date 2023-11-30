@@ -31,6 +31,11 @@ const Navbar = () => {
                 Posts
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to={"/blog/add"}>
+                Add Post
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>

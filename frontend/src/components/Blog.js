@@ -6,7 +6,7 @@ const Blog = () => {
   const [featuredBlog, setFeaturedBlog] = useState([]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/api/blog`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/blog/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -19,7 +19,7 @@ const Blog = () => {
   }, [blogs]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/api/blog/featured`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/blog/featured/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -96,9 +96,9 @@ const Blog = () => {
           </Link>
           <Link
             className="p-2 link-secondary text-decoration-none"
-            to="/category/environment"
+            to="/category/entertainment"
           >
-            Environment
+            Entertainment
           </Link>
           <Link
             className="p-2 link-secondary text-decoration-none"
@@ -114,9 +114,9 @@ const Blog = () => {
           </Link>
           <Link
             className="p-2 link-secondary text-decoration-none"
-            to="/category/culture"
+            to="/category/local"
           >
-            Culture
+            Local
           </Link>
           <Link
             className="p-2 link-secondary text-decoration-none"
@@ -126,9 +126,9 @@ const Blog = () => {
           </Link>
           <Link
             className="p-2 link-secondary text-decoration-none"
-            to="/category/politics"
+            to="/category/health"
           >
-            Politics
+            Health
           </Link>
           <Link
             className="p-2 link-secondary text-decoration-none"
@@ -144,21 +144,9 @@ const Blog = () => {
           </Link>
           <Link
             className="p-2 link-secondary text-decoration-none"
-            to="/category/health"
+            to="/category/sports"
           >
-            Health
-          </Link>
-          <Link
-            className="p-2 link-secondary text-decoration-none"
-            to="/category/style"
-          >
-            Style
-          </Link>
-          <Link
-            className="p-2 link-secondary text-decoration-none"
-            to="/category/travel"
-          >
-            Travel
+            Sports
           </Link>
         </nav>
       </div>

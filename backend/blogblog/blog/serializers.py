@@ -10,7 +10,9 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class BlogPostSerializer(serializers.ModelSerializer):
     comments = serializers.StringRelatedField(many=True)
-    category = CategorySerializer(many=False)
+    category = serializers.SlugRelatedField(
+        many=False, slug_field="name", read_only=True
+    )
 
     class Meta:
         model = BlogPost

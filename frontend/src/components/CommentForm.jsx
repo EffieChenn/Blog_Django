@@ -13,13 +13,16 @@ const CommentForm = (slug) => {
       content: content,
     };
 
-    fetch(`${process.env.REACT_APP_API_URL}/api/blog/${slug.slug}/comment`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(comment),
-    })
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/blog/${slug.slug}/add-comment/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(comment),
+      }
+    )
       .then((response) => {
         if (response.status === 201) {
           console.log("Comment added successfully!");

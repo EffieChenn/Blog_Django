@@ -10,8 +10,7 @@ const Category = () => {
     const category = params.id;
     setCurrentCategory(capitalizeFirstLetter(category));
 
-    fetch(`${process.env.REACT_APP_API_URL}/api/blog?category=${category}`, {
-      // fetch(`${process.env.REACT_APP_API_URL}/api/blog/category/${category}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/categories/${category}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -28,6 +27,11 @@ const Category = () => {
 
   const capitalizeFirstLetter = (word) => {
     if (word) return word.charAt(0).toUpperCase() + word.slice(1);
+    return "";
+  };
+
+  const CorrectingImgSrc = (src) => {
+    if (src) return "http://127.0.0.1:8000" + src;
     return "";
   };
 
@@ -53,9 +57,9 @@ const Category = () => {
           </div>
           <div className="col-auto d-none d-lg-block">
             <img
-              width="200"
-              height="250"
-              src={blogPost.thumbnail}
+              width="300"
+              height="300"
+              src={CorrectingImgSrc(blogPost.thumbnail)}
               alt="thumbnail"
             />
           </div>
@@ -88,9 +92,9 @@ const Category = () => {
           </Link>
           <Link
             className="p-2 link-secondary text-decoration-none"
-            to="/category/environment"
+            to="/category/entertainment"
           >
-            Environment
+            Entertainment
           </Link>
           <Link
             className="p-2 link-secondary text-decoration-none"
@@ -106,9 +110,9 @@ const Category = () => {
           </Link>
           <Link
             className="p-2 link-secondary text-decoration-none"
-            to="/category/culture"
+            to="/category/local"
           >
-            Culture
+            Local
           </Link>
           <Link
             className="p-2 link-secondary text-decoration-none"
@@ -118,9 +122,9 @@ const Category = () => {
           </Link>
           <Link
             className="p-2 link-secondary text-decoration-none"
-            to="/category/politics"
+            to="/category/health"
           >
-            Politics
+            Health
           </Link>
           <Link
             className="p-2 link-secondary text-decoration-none"
@@ -136,21 +140,9 @@ const Category = () => {
           </Link>
           <Link
             className="p-2 link-secondary text-decoration-none"
-            to="/category/health"
+            to="/category/sports"
           >
-            Health
-          </Link>
-          <Link
-            className="p-2 link-secondary text-decoration-none"
-            to="/category/style"
-          >
-            Style
-          </Link>
-          <Link
-            className="p-2 link-secondary text-decoration-none"
-            to="/category/travel"
-          >
-            Travel
+            Sports
           </Link>
         </nav>
       </div>
