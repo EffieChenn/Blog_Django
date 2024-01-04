@@ -66,6 +66,7 @@ const Blog = () => {
               height="300"
               src={blogPost.thumbnail}
               alt="thumbnail"
+              className="img-thumbnail"
             />
           </div>
         </div>

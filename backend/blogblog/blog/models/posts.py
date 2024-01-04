@@ -27,9 +27,9 @@ class Category(models.Model):
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=50)
-    slug = models.SlugField()
+    slug = models.SlugField(blank=True)
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, related_name="posts"
+        Category, on_delete=models.CASCADE, related_name="posts", default=1
     )
     thumbnail = models.ImageField(upload_to="photos/%Y/%m/%d/")
     excerpt = models.CharField(max_length=150)
