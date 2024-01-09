@@ -8,6 +8,10 @@ from .views import (
     BlogPostViewSet,
     CategoryViewSet,
 )
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 router = DefaultRouter()
 router.register(r"blog", BlogPostViewSet)
@@ -26,6 +30,9 @@ urlpatterns = [
         BlogPostViewSet.as_view({"post": "add_comment"}),
         name="blogpost-add-comment",
     ),
+    # JWT Auth
+    path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     # path("blog", BlogPostListView.as_view()),
     # path("blog/featured", BlogPostFeaturedView.as_view()),
     # path("blog/<slug>", BlogPostDetailView.as_view(), name="blogpost-detail"),

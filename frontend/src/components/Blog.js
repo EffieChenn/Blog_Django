@@ -43,7 +43,7 @@ const Blog = () => {
     blogs.map((blogPost) => {
       list.push(
         <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-          <div className="col p-4 d-flex flex-column position-static">
+          <div className="col w-50 p-4 d-flex flex-column position-static">
             <strong className="d-inline-block mb-2 text-primary">
               {capitalizerFirstLetter(blogPost.category)}
             </strong>
