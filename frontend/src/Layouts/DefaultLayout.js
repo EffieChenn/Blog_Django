@@ -1,11 +1,14 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import { AuthProvider } from "../components/auth/AuthRequired";
 
 const DefaultLayout = (props) => {
   return (
     <div>
-      <Navbar />
-      {props.children}
+      <AuthProvider>
+        <Navbar />
+        {props.children}
+      </AuthProvider>
     </div>
   );
 };

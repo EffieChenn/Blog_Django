@@ -9,7 +9,6 @@ const BlogDetail = () => {
   const [blog, setData] = useState({});
   const [comments, setComments] = useState([]);
   useEffect(() => {
-    // const slug = params.id;
     fetch(`${process.env.REACT_APP_API_URL}/api/blog/${slug}/`, {
       method: "GET",
       headers: {
@@ -19,7 +18,6 @@ const BlogDetail = () => {
       .then((res) => res.json())
       .then((data) => {
         setData(data);
-        // setComments(data.comments);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -54,6 +52,10 @@ const BlogDetail = () => {
       <h1 className="display-2">{blog.title}</h1>
       <p className="mt-4 text-muted fs-5">
         Category : {capitalizerFirstLetter(blog.category)}
+      </p>
+      <p className="mt-4 text-muted fs-5">
+        Author :{" "}
+        {blog.author ? capitalizerFirstLetter(blog.author) : "anonymous"}
       </p>
       <p className="mt-4 text-black-50 fs-5">
         {blog.month} {blog.day}

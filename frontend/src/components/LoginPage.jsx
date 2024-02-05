@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../css/login.css";
+import AuthRequired from "./auth/AuthRequired";
 
 const LoginPage = () => {
+  let { loginUser } = useContext(AuthRequired);
+
   return (
     <div className="container">
       <div className="row">
@@ -11,7 +14,10 @@ const LoginPage = () => {
             Log in and post something!
           </div>
           <div className="card my-5">
-            <form className="card-body cardbody-color p-lg-5">
+            <form
+              onSubmit={loginUser}
+              className="card-body cardbody-color p-lg-5"
+            >
               <div className="text-center">
                 <img
                   src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
@@ -25,23 +31,25 @@ const LoginPage = () => {
                 <input
                   type="text"
                   className="form-control"
-                  id="Username"
+                  name="username"
                   aria-describedby="emailHelp"
-                  placeholder="User Name"
+                  placeholder="username"
                 />
               </div>
               <div className="mb-3">
                 <input
                   type="password"
                   className="form-control"
-                  id="password"
+                  name="password"
                   placeholder="password"
                 />
               </div>
               <div className="text-center">
-                <button type="submit" className="btn btn-color px-5 mb-5 w-100">
-                  Login
-                </button>
+                <input
+                  type="submit"
+                  className="btn btn-color px-5 mb-5 w-100"
+                  placeholder="Login"
+                />
               </div>
               <div
                 id="emailHelp"

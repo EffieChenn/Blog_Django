@@ -3,9 +3,21 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import permissions
+from rest_framework.permissions import IsAuthenticated
 from .models import BlogPost, Comment, Category
 from .serializers import BlogPostSerializer, CommentSerializer, CategorySerializer
 from datetime import datetime
+
+from rest_framework.permissions import BasePermission
+
+
+class IsAuthenticatedOrReadOnlyForCreate(BasePermission):
+    def has_permission(self, request, view):
+        # 允许 GET、HEAD、OPTIONS 请求
+        if request.method in ["GET", "HEAD", "OPTIONS"]:
+            return True
+        # 在执行 create 操作时进行身份验证
+        return request.user and request.user.is_authenticated
 
 
 class CategoryViewSet(ModelViewSet):
@@ -30,7 +42,7 @@ class CategoryViewSet(ModelViewSet):
 class BlogPostViewSet(ModelViewSet):
     serializer_class = BlogPostSerializer
     lookup_field = "slug"
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = [IsAuthenticatedOrReadOnlyForCreate]
     queryset = BlogPost.objects.all()
 
     def list(self, request):
@@ -65,11 +77,16 @@ class BlogPostViewSet(ModelViewSet):
         return Response(serializer.data)
 
     def create(self, request):
+        self.check_permissions(request)
+
+        user = request.user
+
         serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
             category_name = request.data.get("category")
             category = Category.objects.filter(name=category_name).first()
+            serializer.validated_data["author"] = user
 
             if not category_name or not category:
                 default_category = Category.objects.get(pk=1)

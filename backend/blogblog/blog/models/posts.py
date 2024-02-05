@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 
 
 # class Categories(models.TextChoices):
@@ -27,7 +28,7 @@ class Category(models.Model):
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=50)
-    slug = models.SlugField(blank=True)
+    slug = models.SlugField(blank=True, max_length=400)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="posts", default=1
     )
@@ -38,6 +39,7 @@ class BlogPost(models.Model):
     content = models.TextField()
     featured = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=datetime.now, blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def save(self, *args, **kwargs):
         original_slug = slugify(self.title)

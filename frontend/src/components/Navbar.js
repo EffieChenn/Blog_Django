@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import AuthRequired from "./auth/AuthRequired";
 
 const Navbar = () => {
+  let { user, logoutUser, authTokens } = useContext(AuthRequired);
+
+  const isAuthenticated = () => {
+    if (!authTokens) {
+      window.alert("請先登入！");
+      window.location.href = "/login";
+    } else {
+      window.location.href = "/blog/add";
+    }
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -32,15 +44,28 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to={"/blog/add"}>
+              <Link className="nav-link" onClick={isAuthenticated}>
                 Add Post
-              </NavLink>
+              </Link>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to={"/login"}>
-                Login
-              </NavLink>
-            </li>
+            {user ? (
+              <li className="nav-item">
+                <Link className="nav-link" onClick={logoutUser}>
+                  Logout
+                </Link>
+              </li>
+            ) : (
+              <li className="nav-item">
+                <NavLink className="nav-link" to={"/login"}>
+                  Login
+                </NavLink>
+              </li>
+            )}
+            {user && (
+              <li className="nav-item">
+                <p className="nav-link">Hello, {user.username}</p>
+              </li>
+            )}
           </ul>
         </div>
       </div>
