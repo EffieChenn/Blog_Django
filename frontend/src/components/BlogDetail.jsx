@@ -60,7 +60,11 @@ const BlogDetail = () => {
       <p className="mt-4 text-black-50 fs-5">
         {blog.month} {blog.day}
       </p>
-      <div className="mt-5 mb-5" dangerouslySetInnerHTML={createBlog()} />
+      <div
+        style={{ whiteSpace: "pre-wrap" }}
+        className="mt-5 mb-5"
+        dangerouslySetInnerHTML={createBlog()}
+      />
 
       <ul className="d-flex flex-column mb-5 p-4 bg-light rounded">
         <CommentForm slug={slug} />

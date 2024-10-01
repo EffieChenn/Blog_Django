@@ -13,10 +13,10 @@ from rest_framework.permissions import BasePermission
 
 class IsAuthenticatedOrReadOnlyForCreate(BasePermission):
     def has_permission(self, request, view):
-        # 允许 GET、HEAD、OPTIONS 请求
-        if request.method in ["GET", "HEAD", "OPTIONS"]:
+        # 允許 GET、HEAD、OPTIONS 請求
+        if request.method in ["GET", "POST", "HEAD", "OPTIONS"]:
             return True
-        # 在执行 create 操作时进行身份验证
+        # 在執行 create 操作時進行身份驗證
         return request.user and request.user.is_authenticated
 
 
@@ -57,7 +57,8 @@ class BlogPostViewSet(ModelViewSet):
     @action(detail=True, methods=["get"])
     def comments(self, request, slug=None):
         blogpost = self.get_object()
-        comments = Comment.objects.filter(blogpost=blogpost).order_by("-pub_date")
+        comments = Comment.objects.filter(
+            blogpost=blogpost).order_by("-pub_date")
         comment_serializer = CommentSerializer(comments, many=True)
         return Response(comment_serializer.data)
 

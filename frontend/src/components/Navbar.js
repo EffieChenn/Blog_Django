@@ -32,7 +32,7 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
+          <ul className="navbar-nav d-flex">
             <li className="nav-item">
               <NavLink className="nav-link active" aria-current="page" to={"/"}>
                 Home
@@ -49,20 +49,20 @@ const Navbar = () => {
               </Link>
             </li>
             {user ? (
-              <li className="nav-item">
+              <li className="nav-item ms-auto">
                 <Link className="nav-link" onClick={logoutUser}>
                   Logout
                 </Link>
               </li>
             ) : (
-              <li className="nav-item">
+              <li className="nav-item ms-auto">
                 <NavLink className="nav-link" to={"/login"}>
                   Login
                 </NavLink>
               </li>
             )}
             {user && (
-              <li className="nav-item">
+              <li className="nav-item ms-auto">
                 <p className="nav-link">Hello, {user.username}</p>
               </li>
             )}
